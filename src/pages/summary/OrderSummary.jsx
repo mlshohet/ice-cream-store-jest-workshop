@@ -1,13 +1,28 @@
+import SummaryForm from './SummaryForm';
 import { useOrderDetails } from '../../contexts/OrderDetails';
 
-const OrderSummary = () => {
-	const [orderDetails] = useOrderDetails();
+const OrderSummary = ({ setOrderPhase }) => {
+	const [orderDetails, , resetOrder] = useOrderDetails();
 
-	const total = orderDetails.totals.grandTotal;
+	const scoops = orderDetails.scoops;
+	// const toppings = orderDetails.toppings;
+	// const total = orderDetails.grandTotal;
 
+	const scoopsArr = Array.from(scoops);
 	return (
-		<h2>Grand total: {total}</h2>
-	);
+		<div>
+			<ul>
+			{
+				scoopsArr.map(item => 
+					<li key={item[0]}>
+						{item[0]} - {item[1]}
+					</li>
+				)
+			}
+			</ul>
+			<SummaryForm setOrderPhase={setOrderPhase} resetOrder={resetOrder}/>
+		</div>
+	)
 };
 
 export default OrderSummary;

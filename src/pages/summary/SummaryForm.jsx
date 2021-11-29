@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
-const SummaryForm = () => {
+const SummaryForm = ({ setOrderPhase, resetOrder }) => {
 	const [tcChecked, setTcChecked] = useState(false);
 
 	const popover = (
@@ -26,6 +26,12 @@ const SummaryForm = () => {
     	</span>
 	);
 
+	const onClickHandler = event => {
+		event.preventDefault();
+		setOrderPhase();
+		resetOrder();
+	}
+
 	return (
 		<Form>
 			<Form.Group controlId="terms-and-conditions">
@@ -40,6 +46,7 @@ const SummaryForm = () => {
 				variant="primary"
 				type="submit"
 				disabled={!tcChecked}
+				onClick={onClickHandler}
 			>
 				Confirm order
 			</Button>
