@@ -8,11 +8,11 @@ test('order phases for happy path', async () => {
 
 	// add ice cream scoops and toppings
 	const vanillaScoop = await screen.findByRole('spinbutton', { name: "Vanilla" });
-	const cherryTopping = await screen.findByRole('checkbox', { name: "Cherries" });
+	//const cherryTopping = await screen.findByRole('checkbox', { name: "Cherries" });
 
 	userEvent.clear(vanillaScoop);
 	userEvent.type(vanillaScoop, '2');
-	userEvent.click(cherryTopping);
+	//userEvent.click(cherryTopping);
 
 	// find and click order button on order entry page
 
@@ -22,12 +22,31 @@ test('order phases for happy path', async () => {
 
 	// check if summary info is correct based on order
 
+	const scoopsSection = await screen.findByRole('heading', { name: /scoops/i});
+	expect(scoopsSection).toBeInTheDocument();
+	const toppingsSection = await screen.queryByRole('heading',{ name: /toppings/i });
+	expect(toppingsSection).not.toBeInTheDocument();
+
 	// accept terms and conditions and click button to confirm order
 	const checkbox = await screen.findByRole('checkbox', { name: "I agree to Terms and Conditions" });
 	const confirmButton = await screen.findByRole('button', { name: "Confirm order" });
 	userEvent.click(checkbox);
 	expect(checkbox).toBeChecked();
 	userEvent.click(confirmButton);
+
+	// check if Loading shows up and is gone
+	
+	const loadingText = await screen.findByRole('heading', { name: /loading.../i });
+	expect(loadingText).toBeInTheDocument();
+
+	//check if it's gone
+
+	const thankYouHeader = await screen.findByRole('heading', { name: /thank you!/i});
+	expect(thankYouHeader).toBeInTheDocument();
+	
+
+	const notLoading = await screen.queryByText(/loading.../i);
+	expect(notLoading).not.toBeInTheDocument();
 
 	// confirm order numer on confirmation page
 

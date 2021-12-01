@@ -24,7 +24,7 @@ const OrderConfirmation = ({ setOrderPhase }) => {
 					Create new order
 				</button>
 			</div> 
-		) : <div>Loading...</div>
+		) : <div><h1>Loading...</h1></div>
 };
 
 export default OrderConfirmation;
