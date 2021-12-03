@@ -58,6 +58,10 @@ export const OrderDetailsProvider = props => {
 		//setter: update option count
 
 		const updateItemCount = (itemName, newItemCount, optionType) => {
+			if (newItemCount < 0) {
+				newItemCount = 0;
+			}
+			
 			const newOptionCounts = { ...optionCounts };
 			const optionCountsMap = newOptionCounts[optionType];
 			optionCountsMap.set(itemName, parseInt(newItemCount));

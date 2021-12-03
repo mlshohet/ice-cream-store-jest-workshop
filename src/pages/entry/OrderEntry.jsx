@@ -13,7 +13,10 @@ const OrderEntry = ({ setOrderPhase }) => {
 			<h2 style={{ margin: '50px 0 50px 0' }}>
 				Grand total: {total}
 			</h2>
-			<button onClick={ setOrderPhase }>
+			<button 
+				onClick={ setOrderPhase }
+				disabled={total === '$0.00'}
+			>
 				Place your order
 			</button>
 		</div>

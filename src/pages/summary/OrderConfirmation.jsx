@@ -13,7 +13,12 @@ const OrderConfirmation = ({ setOrderPhase }) => {
 	}, []);
 
 	if (error) {
-		return <AlertBanner />
+		return (
+			<>
+				<AlertBanner />
+				<button onClick={setOrderPhase}>Create new order</button>
+			</>
+		)
 	}
 
 	return data ? (
